@@ -1,0 +1,936 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+  text-align: center;
+}
+
+body {
+  margin: 0px;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  background-color: #33b6ea;
+  height: 44px;
+  width: 100%;
+  z-index: 300;
+}
+
+.header__wrapper {
+  position: relative;
+  height: 44px;
+}
+
+.header__wrapper > * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// .content::before {
+//   content: "header";
+//   height: 44px;
+//   z-index: -300;
+//   display: block;
+// }
+
+.tasks__list {
+  padding-inline-start: 0px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.task__view-template {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.task__edit-template {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  padding: 8px 0;
+  cursor: pointer;
+}
+
+.task__view-template > *,
+.task__edit-template > * {
+  margin: 5px;
+}
+
+.task__view-template-name {
+  font-size: 14px;
+  word-break: break-word;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  text-align: start;
+  height: fit-content;
+  position: relative;
+  top: 0.5em;
+  width: -webkit-fill-available;
+}
+
+.task__view-template-description {
+  color: grey;
+  margin: 10px 0px -5px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+
+.task__view-template-content {
+  font-size: 14px;
+  text-align: start;
+  width: -webkit-fill-available;
+}
+
+.task__view-template-due-date {
+  margin-top: 10px;
+  font-size: 12px;
+  color: gray;
+  width: fit-content;
+}
+
+.task__view-template-due-date > * {
+  vertical-align: top;
+}
+
+.task__view-template-due-date--hidden {
+  font-size: 0%;
+}
+
+.task__view-template-due-date--overdue,
+.task__view-template-due-date--overdue > * {
+  color: #d1453b;
+}
+
+.task__view-template-name--completed {
+  color: gray;
+  text-decoration: line-through;
+}
+
+.task__view-template-delete {
+  height: 21px;
+  position: relative;
+  top: 1px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+svg {
+  color: grey;
+}
+
+.task__view-template-edit {
+  height: 21px;
+  position: relative;
+  top: 1px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.task__view-template-schedule {
+  height: 21px;
+  position: relative;
+  top: 1px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.task__view-template-schedule--hidden {
+  display: none;
+}
+
+.task__edit-template-content {
+  position: relative;
+  top: 4px;
+  width: -webkit-fill-available;
+  resize: none;
+}
+
+.task__edit-template-edit-task-name {
+  position: relative;
+  top: 4px;
+  width: -webkit-fill-available;
+  resize: none;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.task__edit-template-edit-task-description {
+  position: relative;
+  top: 4px;
+  width: -webkit-fill-available;
+  resize: none;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.task__edit-template-edit-task-name::placeholder {
+  color: rgba(0,0,0,0.4);;
+}
+
+.task__edit-template-edit-task-description::placeholder {
+  color: rgba(0,0,0,0.4);;
+}
+
+.task__edit-template-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task__edit-template-buttons-top {
+  display: flex;
+}
+
+.task__edit-template-buttons-bottom {
+  display: flex;
+  place-content: flex-end;
+}
+
+.task__edit-template-cancel-editing {
+  height: 21px;
+  position: relative;
+  top: 1px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.task__edit-template-save-editing {
+  height: 21px;
+  position: relative;
+  top: 1px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button.task__edit-template-priority {
+  height: 21px;
+  position: relative;
+  top: 1px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.add-task__show-add-task {
+  height: 21px;
+  position: relative;
+  top: 2px;
+  margin: 10px 5px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: inherit;
+  right: -2.3px;
+}
+
+.add-task__show-add-task > svg {
+  color: inherit;
+}
+
+.add-task__show-wrapper {
+  width: fit-content;
+  color: grey;
+  cursor: pointer;
+  outline: none;
+}
+
+.add-task__show-wrapper--invisible {
+  display: none;
+}
+
+.add-task__show-wrapper:hover {
+  color: #7e57c2;
+}
+
+.add-task__show-add-task-label {
+  font-size: 14px;
+  color: inherit;
+  height: 21px;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding-right: 24px;
+  right: -9.7px;
+}
+
+.add-task__show-add-task-label:hover {
+  color: #7e57c2;
+}
+
+.add-task__input__task-name-input {
+  resize: none;
+  position: relative;
+  top: 4px;
+  width: -webkit-fill-available;
+  margin: 0 15px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.add-task__input__task-description-input {
+  resize: none;
+  position: relative;
+  top: 4px;
+  width: -webkit-fill-available;
+  margin: 0 15px;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.add-task__input__task-name-input::placeholder {
+  color: rgba(0,0,0,0.4);;
+}
+
+.add-task__input__task-description-input::placeholder {
+  color: rgba(0,0,0,0.4);;
+}
+
+.task__input__buttons__submit {
+  background-color: #33b6ea;
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 6px 12px 6px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  opacity: 0.5;
+  cursor: not-allowed;
+  margin-left: 12px;
+}
+
+.task__input__buttons__submit--active {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.task__input__buttons__submit--active:hover {
+  color: #fff;
+  background-color: #138dbd;
+}
+
+.task__input__buttons__cancel {
+  background-color: #f5f5f5;
+  color: #444;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 12px 6px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.task__input__buttons__cancel:hover {
+  background-color: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.add-task__input--invisible {
+  display: none;
+}
+
+.add-task__input__buttons {
+  margin-top: 10px;
+  margin-right: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-task__input__buttons > * {
+  height: 32px;
+}
+
+textarea {
+  border-radius: 3px;
+}
+
+/* Round checkbox */
+.round-checkbox {
+  display: inline-block;
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  transform: scale(0.6);
+}
+
+.round-checkbox__wrapper {
+  position: relative;
+  width: 30px;
+}
+
+.round-checkbox__wrapper label {
+  background-color: #fff;
+  border: 1px solid grey;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+}
+
+.round-checkbox__wrapper label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 7px;
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.round-checkbox__wrapper input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round-checkbox__wrapper input[type="checkbox"]:checked + label {
+  background-color: gray;
+  border-color: gray;
+}
+
+.round-checkbox__wrapper input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+.round-checkbox__wrapper--priority-1 label {
+  background-color: rgba(209,69,59,.1);
+  border: 1px solid #d1453b;
+}
+
+.round-checkbox__wrapper--priority-1 input[type=checkbox]:checked + label {
+  background-color: #d1453b;
+  border-color: #d1453b;
+}
+
+.round-checkbox__wrapper--priority-2 label {
+  background-color: rgba(235,137,9,.1);
+  border: 1px solid #eb8909;
+}
+
+.round-checkbox__wrapper--priority-2 input[type=checkbox]:checked + label {
+  background-color: #eb8909;
+  border-color: #eb8909;
+}
+
+.round-checkbox__wrapper--priority-3 label {
+  background-color: rgba(0,128,0,.1);
+  border: 1px solid green;
+}
+
+.round-checkbox__wrapper--priority-3 input[type=checkbox]:checked + label {
+  background-color: green;
+  border-color: green;
+}
+
+.round-checkbox__wrapper--priority-4 label {
+  background-color: rgba(36,111,224,.1);
+  border: 1px solid #246fe0;
+}
+
+.round-checkbox__wrapper--priority-4 input[type=checkbox]:checked + label {
+  background-color: #246fe0;
+  border-color: #246fe0;
+}
+
+.round-checkbox__wrapper--priority-5 label {
+  background-color: transparent;
+  border: 1px solid grey;
+}
+
+.round-checkbox__wrapper--priority-5 input[type=checkbox]:checked + label {
+  background-color: grey;
+  border-color: grey;
+}
+
+/* Date time picker */
+.date-time-picker, .project-popover-menu, .priority-selector-popover {
+  /* width: 620px; */
+  /* height: 600px; */
+  /* max-height: 600px; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 1px 8px 0 rgb(0 0 0 / 8%), 0 0 1px 0 rgb(0 0 0 / 30%);
+  overflow: hidden;
+  z-index: 1;
+  padding: 16px;
+}
+
+.priority-selector-popover {
+  padding: 0px;
+}
+
+.date-time-picker__quick-date-selector-wrapper {
+  border-bottom: 1px solid #aeaeae;
+}
+
+.date-time-picker__quick-date-selector-item, .project-popover-menu__item,
+.priority-selector-popover__priority-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.priority-selector-popover__priority-item:hover {
+  background-color: #f3f3f3;
+}
+
+.priority-selector-popover__priority-item {
+  width: 275px;
+  padding: 8px 16px;
+}
+
+.priority-selector-popover__priority-item-name {
+  font-weight: 300;
+}
+
+.date-time-picker__quick-date-selector-item--hidden {
+  display: none;
+}
+
+.date-time-picker__quick-date-selector-item-icon, .project-popover-menu__item-icon,
+.priority-selector-popover__priority-item-icon {
+  margin-right: 10px;
+}
+
+.date-time-picker__quick-date-selector-wrapper * > svg, .project-popover-menu * > svg,
+.priority-selector-popover__priority-item-list * > svg {
+  width: 16px;
+  height: 16px;
+}
+
+.svg-red > svg {
+  fill: #d1453b;
+}
+
+.svg-orange > svg {
+  fill: #eb8909;
+}
+
+.svg-green > svg {
+  fill: green;
+}
+
+.svg-blue > svg {
+  fill: #246fe0;
+}
+
+.svg-grey > svg {
+  fill: #666;
+}
+
+.invisible {
+  display: none;
+}
+
+.date-time-picker__quick-date-selector-item-title, .project-popover-menu__item-title,
+.priority-selector-popover__priority-item-name {
+  width: -webkit-fill-available;
+  font-weight: 600;
+}
+
+.date-time-picker__quick-date-selector-item-date-time {
+  white-space: nowrap;
+  color: grey;
+}
+
+.react-datepicker {
+  border: none;
+}
+
+.react-datepicker__header {
+  background-color: #fff;
+}
+
+.react-datepicker__day--selected {
+  background-color: #33b6ea;
+}
+
+.react-datepicker-time__input {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+.rc-time-picker-input {
+  width: unset;
+  color: unset;
+  border: unset;
+  font-size: 13.3333px;
+  outline: none;
+}
+
+.rc-time-picker-panel {
+  margin-left: unset;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    black;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+ color:    black;
+ opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    black;
+  opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    black;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    black;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+  color:    black;
+}
+
+.rc-time-picker-clear-icon:hover:after,
+.rc-time-picker-clear-icon:after,
+.rc-time-picker-clear-icon:after {
+  color: black;
+}
+
+.date-time-picker__time-picker-wrapper {
+  margin-left: 57px;
+}
+
+.rc-time-picker-clear {
+  margin-right: 57px;
+}
+
+.rc-time-picker, .date-time-picker__time-picker, .date-time-picker__time-picker > * {
+  cursor: pointer;
+}
+
+li.rc-time-picker-panel-select-option-selected {
+  background: #33b6ea;
+  color: white;
+}
+
+.rc-time-picker-panel-select li:hover {
+  color: black;
+}
+
+.react-tiny-popover-container {
+  z-index: 400;
+}
+
+.sidebar__pre-defined-projects-item,
+.sidebar__non-pre-defined-projects-header {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 3px 11px 3px 5px;
+}
+
+.sidebar__pre-defined-projects-item--selected {
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+.sidebar__pre-defined-projects-item:hover {
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+.sidebar__pre-defined-projects-item > *,
+.sidebar__non-pre-defined-projects-header > * {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  margin: 5px;
+  height: 20px;
+}
+
+.sidebar__pre-defined-projects-item-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.sidebar__pre-defined-projects-item-button--hidden {
+  display: none;
+}
+
+.sidebar__pre-defined-projects-item-button:hover > svg, .sidebar__pre-defined-projects-item-button--popover-open > svg {
+  color: #202020;
+}
+
+.sidebar__pre-defined-projects-item-name {
+  width: -webkit-fill-available;
+}
+
+.content {
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: white;
+  display: flex;
+  margin-top: 44px;
+  flex-flow: row;
+}
+
+@media all and (min-width: 1200px) {
+  ul.sidebar__pre-defined-projects, ul.sidebar__non-pre-defined-projects,
+  .sidebar__non-pre-defined-projects-header {
+    padding-inline-start: 0px;
+    margin: 32px 0px 32px 32px;
+    padding-right: 5px;
+  }
+
+  .sidebar {
+    flex: 1.7 1;
+    background-color: #fafafa;
+    min-width: 15.9vw;
+  }
+
+  .tasks {
+    flex: 4.75 1;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    min-width: 40vw;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  ul.sidebar__pre-defined-projects, ul.sidebar__non-pre-defined-projects,
+  .sidebar__non-pre-defined-projects-header {
+    padding-inline-start: 0px;
+    margin: 32px 0px 32px 0px;
+    padding-right: 5px;
+  }
+
+  .sidebar {
+    flex: 1.7 1;
+    background-color: #fafafa;
+  }
+  
+  .tasks {
+    flex: 4.75 1;
+  }
+}
+
+.sidebar__non-pre-defined-projects-header {
+  padding: 3px 16px 3px 5px;
+  margin: 32px 0px 0px 32px;
+  font-weight: 700;
+  cursor: unset;
+}
+
+ul.sidebar__non-pre-defined-projects {
+  margin: 0px 0px 32px 32px;
+}
+
+.sidebar__non-pre-defined-projects-header-name {
+  width: -webkit-fill-available;
+}
+
+.sidebar__non-pre-defined-projects-header-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.modal__background {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__content {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 400px;
+  text-align: initial;
+}
+
+.modal__header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #fafafa;
+  padding: 1px 24px;
+}
+
+.modal__header__title {
+  font-size: 12px;
+}
+
+.modal__body__name {
+  /* margin-bottom: 20px; */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 20px 25px 25px;
+  background-color: #fff;
+  font-size: .875rem;
+  color: #202020;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.modal__body__message {
+  /* margin-bottom: 20px; */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 20px 25px 20px;
+  background-color: #fff;
+  font-size: .875rem;
+  color: #202020;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.modal__body__name__label {
+  font-size: 14px;
+  width: 50%;
+  font-weight: 700;
+  display: block;
+  margin: 0 0 7px;
+}
+
+.modal__body__name__input {
+  width: calc(100% - 12px);
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 24px;
+  border-top: 1px solid #ddd;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.modal__footer__buttons__submit {
+  background-color: #33b6ea;
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 6px 12px 6px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  opacity: 0.5;
+  line-height: 17px;
+  cursor: not-allowed;
+  margin-left: 12px;
+}
+
+.modal__footer__buttons__submit--active {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.modal__footer__buttons__submit--active:hover {
+  color: #fff;
+  background-color: #138dbd;
+}
+
+.modal__footer__buttons__cancel {
+  background: #f3f3f3;
+  color: #202020;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 6px 12px 6px;
+  border: none;
+  outline: none;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  line-height: 17px;
+  cursor: pointer;
+}
+
+.modal__footer__buttons__cancel:hover {
+  background-color: #e5e5e5;
+  color: #1a1a1a;
+}
+
+.sidebar__non-pre-defined-projects-header-icon > svg {
+  fill: transparent;
+}
